@@ -2,9 +2,12 @@
 import './header.styles.scss';
 import {Link} from 'react-router-dom';
 
+//that means we want a react component that renders an svg
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 
-const Header = ()=>{
+import {auth} from '../../firebase/firebase.utils';
+
+const Header = ({currentUser})=>{
   return(
     <div className="header">
       <Link to='/' className="logo-container">
@@ -17,6 +20,13 @@ const Header = ()=>{
         <Link to='/contact' className="option">
           CONTACT
         </Link>
+        {
+          currentUser ?
+          <div className="option" onClick={()=>auth.signOut()}>SIGN OUT
+          </div>
+          :
+          <Link to="/signin">SIGN IN</Link>
+        }
       </div>
     </div>
   )
